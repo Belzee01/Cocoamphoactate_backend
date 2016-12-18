@@ -1,22 +1,22 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 
-class User(models.Model):
-    login = models.CharField(max_length=20)
-    password = models.CharField(max_length=20)
-    mail = models.CharField(max_length=255)
-
-
 class Friends(models.Model):
-    user_one = models.ForeignKey(User, related_name="user_sending_invitation")
-    user_two = models.ForeignKey(User, related_name="user_receiving_invitation")
+    user_one = models.ForeignKey(User, related_name="user_sending_invitation", on_delete=models.CASCADE)
+    user_two = models.ForeignKey(User, related_name="user_receiving_invitation", on_delete=models.CASCADE)
 
 
 class Game(models.Model):
-    title = models.CharField(max_length=255)
-    score = models.FloatField
-    description = models.CharField
+    title = models.CharField(max_length=255, unique=True)
+    description = models.CharField(max_length=1000, default="none")
     platform = models.CharField(max_length=20)
+
+
+class Score(models.Model):
+    game_id = models.ForeignKey(Game, on_delete=models.CASCADE, related_name="game_being_scored")
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="user_who_scores")
+    score = models.FloatField(max_length=10, default=5)
 
 
 class Favorites(models.Model):
@@ -37,4 +37,4 @@ class FriendsPending(models.Model):
 class Reviews(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
-    review = models.CharField
+    review = models.CharField(max_length=1000, default='none')
