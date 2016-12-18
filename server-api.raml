@@ -377,6 +377,33 @@ games/{game_id}:
   get:
   TODO
 
+/users/games/search:
+    post:
+        description: Endpoint for searching games by title substring
+        headers:
+        Authorization:
+          token <GENERATED_TOKEN>
+        body:
+          application/json:
+            example: |
+              {
+                "substring" : "CtestTitleAtestTitleCtestTitleLtest"
+              }
+        responses:
+          200:
+            body:
+                application/json:
+                    example : |
+                    [
+                      {
+                        "id": 18,
+                        "title": "CtestTitleAtestTitleCtestTitleLtestTitle8",
+                        "description": "TtestDescVtestDesc2testDescNtestDescR",
+                        "platform": "PC"
+                      }
+                    ]
+
+
 /gamelib:
   get:
     description: Accepting received invite
