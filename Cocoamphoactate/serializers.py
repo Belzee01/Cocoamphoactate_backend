@@ -36,7 +36,6 @@ class FavoritesSerializer(serializers.ModelSerializer):
         model = Friends
         fields = '__all__'
 
-
 # friends/pending/
 class FriendsPendingSerializer(serializers.ModelSerializer):
     class Meta:
@@ -68,3 +67,8 @@ class ScoreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Score
         fields = '__all__'
+
+class SearchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Game
+        fields = ('id','title')
